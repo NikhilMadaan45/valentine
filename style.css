@@ -1,0 +1,283 @@
+/* ================= RESET & BASE ================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #fff;
+  text-align: center;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+}
+
+body > * {
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ================= SCREEN LAYOUT ================= */
+#lockScreen,
+#questionScreen,
+#noScreen,
+#yesScreen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ================= LOCK SCREEN ================= */
+#lockScreen {
+  background: url("background/bg1.jpg") center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lock-overlay {
+  width: 100%;
+  padding: 30px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.lock-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* TIMER */
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.time-box {
+  padding: 12px 5px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.time-box span {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.time-box small {
+  font-size: 11px;
+}
+
+/* ================= BUTTONS ================= */
+button {
+  border: none;
+  outline: none;
+  height: 2rem;
+  padding: 4px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+button.yes,
+.letter-btn,
+button.try-again {
+  background: linear-gradient(135deg, #ff4b7d, #ff758c);
+  color: #fff;
+}
+
+button.yes:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255, 75, 125, 0.6);
+}
+
+button.no {
+  background: rgba(255, 255, 255, 0.85);
+  color: #ff4b7d;
+}
+
+button.no:hover {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+/* ================= QUESTION SCREEN ================= */
+#questionScreen {
+  background: url("background/bg2.jpg") center / cover no-repeat;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding-top: 12.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ================= NO SCREEN ================= */
+#noScreen:not(.hidden) {
+  background: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.broken-text {
+  width: 15rem;
+  height: 8rem;
+  background: url("background/text.jpg") center / contain no-repeat;
+}
+
+.heart-container {
+  width: 30rem;
+  height: 30rem;
+  background: url("background/bg4.jpg") center / contain no-repeat;
+  margin: 20px 0;
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+/* ================= YES SCREEN ================= */
+#yesScreen:not(.hidden) {
+  background: #fff;
+  color: #ff4b7d;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+/* HERO IMAGE */
+.welcome-image {
+  width: 100%;
+  min-height: 25vh;
+  background: url("background/bg3.jpg") center / cover no-repeat;
+  flex-shrink: 0;
+}
+
+.welcome-title {
+  margin: 16px 0 10px;
+  font-size: 24px;
+}
+
+/* SLIDER */
+.slider {
+  max-width: 320px;
+  margin: 12px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.welcome-image,
+.slider {
+    flex-shrink: 0;
+}
+
+.slider img,
+.slider video {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* LETTER BUTTON */
+.letter-btn {
+  margin: 8px auto 24px;
+  padding: 5px 28px;
+  font-size: 15px;
+}
+
+/* ================= LOVE LETTER ================= */
+.letter {
+  width: 90%;
+  max-width: 420px;
+  margin: 16px auto 40px;
+  padding: 18px 16px;
+  background: #fff;
+  color: #ff4b7d;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease;
+}
+
+#typeText {
+  text-align: left;
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* SCROLLBAR */
+#typeText::-webkit-scrollbar {
+  width: 4px;
+}
+
+#typeText::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 125, 0.5);
+  border-radius: 10px;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (min-width: 600px) {
+  body > * {
+    max-width: 600px;
+  }
+
+  .lock-title {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    justify-content: center;
+  }
+}
