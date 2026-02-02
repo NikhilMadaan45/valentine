@@ -1,5 +1,5 @@
 /* ---------------- TIMER ---------------- */
-const unlockDate = new Date("Jan 14, 2026 00:00:00").getTime();
+const unlockDate = new Date("Feb 14, 2026 00:00:00").getTime();
 
 const lockScreen = document.getElementById("lockScreen");
 const questionScreen = document.getElementById("questionScreen");
@@ -185,3 +185,4 @@ function typeWriter(text, i) {
         setTimeout(() => typeWriter(text, i + 1), 40);
     }
 }
+
