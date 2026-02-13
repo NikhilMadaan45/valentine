@@ -6,12 +6,27 @@ const questionScreen = document.getElementById("questionScreen");
 const noBtn = document.getElementById("noBtn");
 const noScreen = document.getElementById("noScreen");
 const yesScreen = document.getElementById("yesScreen");
+const music = document.getElementById("music");
+
+// ✅ Unlock audio on first user interaction (fix autoplay block)
+function enableMusic() {
+    music.play().then(() => {
+        music.pause();
+        music.currentTime = 0;
+    }).catch(() => {});
+
+    document.removeEventListener("click", enableMusic);
+    document.removeEventListener("touchstart", enableMusic);
+}
+
+document.addEventListener("click", enableMusic);
+document.addEventListener("touchstart", enableMusic);
+
 
 const timerInterval = setInterval(() => {
     const now = new Date().getTime();
     const diff = unlockDate - now;
 
-    // ⏰ TIME OVER
     if (diff <= 0) {
         clearInterval(timerInterval);
 
@@ -22,6 +37,20 @@ const timerInterval = setInterval(() => {
 
         lockScreen.classList.add("hidden");
         questionScreen.classList.remove("hidden");
+
+        // 🎵 Start music after unlock
+        music.volume = 0;
+        music.play().catch(() => {});
+
+        // Smooth fade in
+        let fade = setInterval(() => {
+            if (music.volume < 0.8) {
+                music.volume += 0.05;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+
         return;
     }
 
@@ -52,7 +81,6 @@ function back() {
 
 /* ---------------- SLIDER (IMAGES + VIDEOS) ---------------- */
 const sliderItems = [
-    // Images i1 → i13
     ...Array.from({ length: 13 }, (_, i) => ({
         type: "image",
         src: `images/i${i + 1}.jpeg`
@@ -115,12 +143,14 @@ function sayYes() {
     questionScreen.classList.add("hidden");
     yesScreen.classList.remove("hidden");
 
+    music.play().catch(() => {});
     startSlider();
 }
 
 
-/* ---------------- LOVE LETTER MODAL ---------------- */
+/* ---------------- LOVE LETTER ---------------- */
 const letterSection = document.getElementById("letterSection");
+const typeText = document.getElementById("typeText");
 let letterOpened = false;
 
 const letterContent = `
@@ -161,28 +191,21 @@ Always and completely ❤️
 `;
 
 function openLetter() {
-    if (letterOpened) return; // prevent retyping
+    if (letterOpened) return;
     letterOpened = true;
 
     letterSection.classList.remove("hidden");
     typeText.innerHTML = "";
     typeWriter(letterContent, 0);
 
-    // Smooth scroll to letter
     setTimeout(() => {
         letterSection.scrollIntoView({ behavior: "smooth" });
     }, 300);
 }
 
-function closeLetter() {
-    letterSection.classList.add("hidden");
-}
-
-/* Typewriter effect */
 function typeWriter(text, i) {
     if (i < text.length) {
         typeText.innerHTML += text.charAt(i);
         setTimeout(() => typeWriter(text, i + 1), 40);
     }
 }
-
